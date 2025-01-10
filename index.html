@@ -121,22 +121,15 @@
             gap: 10px;
         }
 
-        .iframe-controls button {
-            background: #4a90e2;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
+        .iframe-controls img {
+            width: 40px;
+            height: 40px;
             cursor: pointer;
+            transition: transform 0.3s;
         }
 
-        .iframe-controls button:hover {
-            background: #0056b3;
-        }
-
-        .close-iframe {
-            background: red;
+        .iframe-controls img:hover {
+            transform: scale(1.1);
         }
     </style>
 </head>
@@ -165,17 +158,12 @@
             <a class="play-now">Play Now</a>
         </div>
     </div>
-    <div class="game-container">
-        <div class="game" onclick="loadGame('https://gamo-games.github.io/Moto-X3M-Pool-Party/')">
-            <img src="https://raw.githubusercontent.com/gamo-games/gamo-games.github/refs/heads/main/MotoX3mPoolPartyTeaser.jpg" alt="Adventure Quest">
-            <a class="play-now">Play Now</a>
-        </div>
 
     <!-- Iframe for Game -->
     <div class="iframe-container" id="iframe-container">
         <div class="iframe-controls">
-            <button class="close-iframe" onclick="closeIframe()">Close</button>
-            <button onclick="toggleFullscreen()">Full Screen</button>
+            <img src="https://raw.githubusercontent.com/gamo-games/g/refs/heads/main/images%20(2).png" alt="Close" onclick="closeIframe()">
+            <img src="https://raw.githubusercontent.com/gamo-games/g/refs/heads/main/images%20(1).png" alt="Full Screen" onclick="toggleFullscreen()">
         </div>
         <iframe id="game-frame" src=""></iframe>
     </div>
