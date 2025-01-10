@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAMO GAMES</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #87ceeb, #ffffff);
+            color: #333;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #4a90e2;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+            text-transform: uppercase;
+        }
+
+        /* Game Container Styling */
+        .game-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .game {
+            position: relative;
+            width: 100%;
+            padding-top: 100%; /* Square aspect ratio */
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .game:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .game img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        .game:hover img {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+
+        .play-now {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #4a90e2;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .game:hover .play-now {
+            display: block;
+        }
+
+        .play-now:hover {
+            background-color: #0056b3;
+        }
+
+        /* Iframe Styling */
+        .iframe-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+        }
+
+        iframe {
+            width: 90%;
+            height: 90%;
+            margin: 5% auto;
+            display: block;
+            border: none;
+        }
+
+        .iframe-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .iframe-controls button {
+            background: #4a90e2;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .iframe-controls button:hover {
+            background: #0056b3;
+        }
+
+        .close-iframe {
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>GAMO GAMES</h1>
+    </header>
+
+    <!-- Game Container -->
+    <div class="game-container">
+        <div class="game" onclick="loadGame('https://gamo-games.github.io/subway-surfers-/')">
+            <img src="https://raw.githubusercontent.com/boki-bot/2048/refs/heads/master/download%20(2).jpeg" alt="Adventure Quest">
+            <a class="play-now">Play Now</a>
+        </div>
+        <div class="game" onclick="loadGame('https://gamo-games.github.io/Temple-Run-2-/')">
+            <img src="https://raw.githubusercontent.com/boki-bot/2048/refs/heads/master/download%20(1).jpeg" alt="Puzzle Mania">
+            <a class="play-now">Play Now</a>
+        </div>
+        <div class="game" onclick="loadGame('https://boki-bot.github.io/2048/')">
+            <img src="https://raw.githubusercontent.com/boki-bot/2048/refs/heads/master/download.png" alt="Space Invaders">
+            <a class="play-now">Play Now</a>
+        </div>
+        <div class="game" onclick="loadGame('https://boki-bot.github.io/--happywheels./')">
+            <img src="https://raw.githubusercontent.com/boki-bot/2048/refs/heads/master/images.png" alt="Racing Thunder">
+            <a class="play-now">Play Now</a>
+        </div>
+    </div>
+    <div class="game-container">
+        <div class="game" onclick="loadGame('https://gamo-games.github.io/subway-surfers-/')">
+            <img src="https://raw.githubusercontent.com/boki-bot/2048/refs/heads/master/download%20(2).jpeg" alt="Adventure Quest">
+            <a class="play-now">Play Now</a>
+        </div>
+
+    <!-- Iframe for Game -->
+    <div class="iframe-container" id="iframe-container">
+        <div class="iframe-controls">
+            <button class="close-iframe" onclick="closeIframe()">Close</button>
+            <button onclick="toggleFullscreen()">Full Screen</button>
+        </div>
+        <iframe id="game-frame" src=""></iframe>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Load the selected game into the iframe
+        function loadGame(url) {
+            const iframeContainer = document.getElementById('iframe-container');
+            const iframe = document.getElementById('game-frame');
+            iframe.src = url;
+            iframeContainer.style.display = 'block'; // Show iframe container
+        }
+
+        // Close the iframe and clear the source
+        function closeIframe() {
+            const iframeContainer = document.getElementById('iframe-container');
+            const iframe = document.getElementById('game-frame');
+            iframe.src = ""; // Clear iframe source
+            iframeContainer.style.display = 'none'; // Hide iframe container
+        }
+
+        // Toggle fullscreen for the iframe container
+        function toggleFullscreen() {
+            const iframeContainer = document.getElementById('iframe-container');
+            if (!document.fullscreenElement) {
+                iframeContainer.requestFullscreen().catch(err => {
+                    alert(`Error attempting to enable full-screen mode: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+    </script>
+</body>
+</html>
